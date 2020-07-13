@@ -6,7 +6,7 @@ project(rviz_plugins)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
   rviz
-  #multi_map_server
+  multi_map_server
   roscpp
 )
 
@@ -56,9 +56,9 @@ add_definitions(-DQT_NO_KEYWORDS)
 ## Qt's meta-object compiler.
 qt5_wrap_cpp(MOC_FILES
   src/goal_tool.h
-#  src/probmap_display.h
-#  src/aerialmap_display.h    
-#  src/multi_probmap_display.h      
+ src/probmap_display.h
+ src/aerialmap_display.h    
+ src/multi_probmap_display.h      
 )
 
 ## Here we specify the list of source files, including the output of
@@ -66,9 +66,9 @@ qt5_wrap_cpp(MOC_FILES
 set(SOURCE_FILES
   src/pose_tool.cpp
   src/goal_tool.cpp
-#  src/probmap_display.cpp
-#  src/aerialmap_display.cpp   
-#  src/multi_probmap_display.cpp  
+ src/probmap_display.cpp
+ src/aerialmap_display.cpp   
+ src/multi_probmap_display.cpp  
   ${MOC_FILES}
 )
 

@@ -56,9 +56,6 @@ for i=0:n_seg-1
     for t = 0:tstep:ts(i+1)
         X_n(k)  = polyval(Pxi, t);
         Y_n(k)  = polyval(Pyi, t);
-        % X_n(k)  = polyval(transpose(poly_coef_x(1 + (i)*(n_order+1): (n_order+1) + (i)*(n_order+1))), t);
-        % Y_n(k)  = polyval(transpose(poly_coef_y(1 + (i)*(n_order+1): (n_order+1) + (i)*(n_order+1))), t);
-        % X_n(k)  = polyval([20,1,1], t);
         k = k+1;
     end
 end

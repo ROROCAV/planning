@@ -11,22 +11,24 @@ dist = zeros(n_seg, 1);
 dist_sum = 0;
 T = 25;
 
-t_sum = 0;
-for i = 1:n_seg
-    dist(i) = sqrt((path(i+1, 1) - path(i, 1))^2 + (path(i+1, 2) - path(i, 2))^2);
-    dist_sum = dist_sum + dist(i);
-end
-for i = 1:n_seg-1
-    ts(i) = dist(i) / dist_sum * T;
-    t_sum = t_sum + ts(i);
-end
-ts(n_seg) = T - t_sum;
-% or you can simply average the time
+% t_sum = 0;
 % for i = 1:n_seg
-%     ts(i) = 1.0;
+%     dist(i) = sqrt((path(i+1, 1) - path(i, 1))^2 + (path(i+1, 2) - path(i, 2))^2);
+%     dist_sum = dist_sum + dist(i);
 % end
+% for i = 1:n_seg-1
+%     ts(i) = dist(i) / dist_sum * T;
+%     t_sum = t_sum + ts(i);
+% end
+% ts(n_seg) = T - t_sum;
+% or you can simply average the time
+for i = 1:n_seg
+    ts(i) = 1.0;
+end
 
+fprintf('Coef_x \n \n');
 poly_coef_x = MinimumSnapCloseformSolver(path(:, 1), ts, n_seg, n_order);
+fprintf('Coef_y \n \n');
 poly_coef_y = MinimumSnapCloseformSolver(path(:, 2), ts, n_seg, n_order);
 
 X_n = [];
@@ -61,22 +63,23 @@ function poly_coef = MinimumSnapCloseformSolver(waypoints, ts, n_seg, n_order)
     %#####################################################
     % STEP 1: compute M
     M = getM(n_seg, n_order, ts);
+    % disp(M);
     %#####################################################
     % STEP 2: compute Ct
     Ct = getCt(n_seg, n_order);
+    % Ct
     C = Ct';
     R = C * inv(M)' * Q * inv(M) * Ct;
     R_cell = mat2cell(R, [n_seg+7 3*(n_seg-1)], [n_seg+7 3*(n_seg-1)]);
     R_pp = R_cell{2, 2};
     R_fp = R_cell{1, 2};
-    %#####################################################
-    % STEP 3: compute dF
-    dF = [];
-    %
-    %
-    %
-    %
-
+    % %#####################################################
+    % % STEP 3: compute dF
+    dF = zeros(n_seg+7);
+    dF(1:4) = start_cond(1:4);
+    dF(n_seg+7-3:n_seg+7) = end_cond(1:4);
+    dF(5:n_seg+7-4) = waypoints(2:(end-1)); 
     dP = -inv(R_pp) * R_fp' * dF;
     poly_coef = inv(M) * Ct * [dF;dP];
+
 end

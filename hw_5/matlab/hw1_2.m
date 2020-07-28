@@ -39,6 +39,8 @@ for i=0:n_seg-1
     % and y-axis
     Pxi = [];
     Pyi = [];
+    Pxi = flipud(poly_coef_x(1 + i*(n_order+1): (n_order+1) + i*(n_order+1),1) );
+    Pyi = flipud(poly_coef_y(1 + i*(n_order+1): (n_order+1) + i*(n_order+1),1) );
     for t=0:tstep:ts(i+1)
         X_n(k)  = polyval(Pxi,t);
         Y_n(k)  = polyval(Pyi,t);

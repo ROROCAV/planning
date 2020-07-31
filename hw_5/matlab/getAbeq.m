@@ -92,7 +92,6 @@ function [Aeq beq]= getAbeq(n_seg, n_order, waypoints, ts, start_cond, end_cond)
             end
         end   
     end
-
     % fprintf('Aeq_con_p \n');
     % disp(Aeq_con_p)
     % fprintf('beq_con_p \n');
@@ -127,7 +126,6 @@ function [Aeq beq]= getAbeq(n_seg, n_order, waypoints, ts, start_cond, end_cond)
             end
         end   
     end
-
     fprintf('Aeq_con_v \n');
     disp(Aeq_con_v)
     fprintf('beq_con_v \n');
